@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel')
 require('dotenv').config();
 
-const secret_key = env.process.SECRET
+const secret_key = process.env.SECRET
 
 const AuthService = {
     register: async (username, email, password) => {
@@ -51,6 +51,11 @@ const AuthService = {
         const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
         return {name: "successfull", token}
     },
+    listAll: async () => {
+        const users = await User.find({});
+        console.log(users);
+        return users;
+    }
 
 }
 
