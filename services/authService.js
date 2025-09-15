@@ -30,7 +30,7 @@ const AuthService = {
         });
         await newUser.save();
         return {
-            name: "Successful",
+            "name": "Successful",
             "message": "User registered Successfully" ,
             newUser
         };     

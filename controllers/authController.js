@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
         newUser = await AuthService.register(username, email, password);
         res.json(newUser);
     } catch(error) {
-        res.json({ error })
+        res.json({ error });
     }
 };
 
@@ -24,14 +24,15 @@ exports.getToken = async (req, res) => {
             return
         }
         if(email) {
-            const token = AuthService.login(email, password)
-            res.json({token})
+            const token = await AuthService.login(email, password)
+            console.log({token});
+            res.json({token});
             return
         }
         
     } catch(error) {
         res.json(error);
     }
-}
+};
 
 // module.exports = { createUser };
