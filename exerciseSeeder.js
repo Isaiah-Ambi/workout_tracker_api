@@ -1,52 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
+const Exercise = require('./models/exerciseModel')
 
-// Exercise Schema (if you don't have one already)
-const exerciseSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  category: {
-    type: String,
-    required: true,
-    enum: ['chest', 'back', 'shoulders', 'arms', 'legs', 'core', 'cardio', 'full-body']
-  },
-  muscleGroups: [{
-    type: String,
-    required: true
-  }],
-  equipment: {
-    type: String,
-    enum: ['bodyweight', 'dumbbells', 'barbell', 'machine', 'resistance-band', 'kettlebell', 'cable', 'none'],
-    default: 'bodyweight'
-  },
-  difficulty: {
-    type: String,
-    enum: ['beginner', 'intermediate', 'advanced'],
-    required: true
-  },
-  instructions: [{
-    type: String,
-    required: true
-  }],
-  tips: [String],
-  cautions: [String],
-  variations: [String],
-  estimatedDuration: {
-    type: Number, // in seconds
-    default: 60
-  },
-  caloriesPerMinute: {
-    type: Number,
-    default: 5
-  }
-}, {
-  timestamps: true
-});
 
-const Exercise = mongoose.model('Exercise', exerciseSchema);
 
 // Sample exercise data
 const exerciseData = [
@@ -309,7 +265,7 @@ const exerciseData = [
 const seedExercises = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fitness-app');
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to MongoDB');
 
     // Clear existing exercises
@@ -339,4 +295,4 @@ if (require.main === module) {
   seedExercises();
 }
 
-module.exports = { Exercise, seedExercises, exerciseData };
+module.exports = { seedExercises, exerciseData };
